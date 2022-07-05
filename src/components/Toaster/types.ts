@@ -38,11 +38,4 @@ export interface ToasterContextMethods {
     update(toastName: ToastProps['name'], override: Partial<ToastProps>): void;
 }
 
-export interface ToasterPublicMethods extends ToasterContextMethods {
-    /** @deprecated Use `add` instead */
-    createToast(toast: ToastProps): void;
-    /** @deprecated Use `remove` instead */
-    removeToast(toastName: ToastProps['name']): void;
-    /** @deprecated Use `update` instead */
-    overrideToast(toastName: ToastProps['name'], override: Partial<ToastProps>): void;
-}
+export interface ToasterPublicMethods extends ToasterContextMethods {}
