@@ -52,7 +52,7 @@ export const Popover = forwardRef(function (
 ) {
     const controlRef = useRef<HTMLDivElement>(null);
     const closedManually = useRef(false);
-    const shouldBeOpen = useRef(false);
+    const shouldBeOpen = useRef(initialOpen);
 
     const {
         isOpen,
@@ -103,6 +103,7 @@ export const Popover = forwardRef(function (
             hasArrow={hasArrow}
             offset={tooltipOffset}
             onClose={anchorRef ? undefined : closeTooltip}
+            qa={qa ? `${qa}-tooltip` : ''}
         >
             <React.Fragment>
                 {title && <h3 className={cnPopover('tooltip-title')}>{title}</h3>}
