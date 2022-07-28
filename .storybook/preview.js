@@ -33,7 +33,23 @@ const withContextProvider = (Story, context) => {
     );
 };
 
-export const decorators = [withTheme, withMobile, withLang, withContextProvider];
+function withAnimationSpeed(Story, context) {
+    const {animationSpeed} = context.globals;
+
+    if (typeof animationSpeed === 'number') {
+        document.body.style.setProperty('--yc-animation-multiplier', `${1 / animationSpeed}`);
+    }
+
+    return <Story {...context} />;
+}
+
+export const decorators = [
+    withTheme,
+    withMobile,
+    withLang,
+    withContextProvider,
+    withAnimationSpeed,
+];
 
 export const parameters = {
     docs: {
@@ -61,6 +77,24 @@ export const parameters = {
         },
     },
 };
+
+const animationSpeed = [0.1, 0.2, 0.5, 0.75, 1, 1.25, 1.5, 1.75, 2, Infinity];
+
+/**
+ * @param {number} speed
+ * @returns {string}
+ */
+function getAnimationSpeedTitle(speed) {
+    if (speed === 1) {
+        return 'normal';
+    }
+
+    if (speed === Infinity) {
+        return 'disabled';
+    }
+
+    return `x${speed}`;
+}
 
 export const globalTypes = {
     theme: {
@@ -93,6 +127,18 @@ export const globalTypes = {
                 {value: 'desktop', title: 'Desktop', icon: 'browser'},
                 {value: 'mobile', title: 'Mobile', icon: 'mobile'},
             ],
+        },
+    },
+    animationSpeed: {
+        name: 'Animation Speed',
+        description: 'Control components animation speed',
+        defaultValue: 1,
+        toolbar: {
+            icon: 'watch',
+            items: animationSpeed.map((speed) => ({
+                value: speed,
+                title: getAnimationSpeedTitle(speed),
+            })),
         },
     },
 };
