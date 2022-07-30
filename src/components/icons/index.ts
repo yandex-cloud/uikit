@@ -8,3 +8,6 @@ export * from './Info';
 export * from './PreviewCloseIcon';
 export * from './QuestionMarkIcon';
 export * from './Success';
+export * from './Link';
+export * from './Share';
+export * from './social';
